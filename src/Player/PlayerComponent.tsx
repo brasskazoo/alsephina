@@ -1,19 +1,24 @@
-import React from 'react'
-import Player from './Player'
+import React from 'react';
+import Player from './Player';
 
 type Props = {
-    player: Player
-}
+    player: Player;
+};
 
-const PlayerComponent: React.FC<Props> = ({player}: Props) => {
+const PlayerComponent: React.FC<Props> = ({ player }: Props) => {
     // let unexploredSystems: StarSystem[] = player.knownSystems;
-    const playerSystemName = player.homeSystem.name
+    const playerSystemName = player.homeSystem.name;
 
-    const unexploredSystems = player.knownSystems.filter(
-        (sys) => {return sys.explored === false}
-        ).map(
-            (sys) => (<div key={sys.name}><h3>{sys.name}</h3></div>)
-            )
+    const unexploredSystems = player.knownSystems
+        .filter((sys) => {
+            return sys.explored === false;
+        })
+        .map((sys) => (
+            <div key={sys.name}>
+                <h3>{sys.name}</h3>
+                <button>Explore...</button>
+            </div>
+        ));
 
     return (
         <div>
@@ -27,8 +32,7 @@ const PlayerComponent: React.FC<Props> = ({player}: Props) => {
                 {unexploredSystems}
             </fieldset>
         </div>
-    )
-}
+    );
+};
 
-
-export default PlayerComponent
+export default PlayerComponent;

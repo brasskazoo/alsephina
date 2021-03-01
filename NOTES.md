@@ -1,14 +1,23 @@
+# Scenario: I can have a player
+
+As a Player I want to create a new Player so that I can play the game
+
+-   Player starts with 1 home system
+-   Player starts with 3 unexplored systems
+
 # Scenario: I can explore star systems
 
--   Start with 1 home system
--   Detect new systems in range
--   Explore a target system
+As a player I want to explore unexplored star systems so that I can find new planets
+
+-   Player can explore an unexplored system
+-   When exploring a system, new unexplored systems become available
+-   [Future] When exploring a system, details of planet(s) are revealed
 
 ## App has a StarSystem concept
 
 -   A system has a name
 -   A system can be explored or unexplored
--   Distance from player? or explored?
+-   [Future] Distance from player? or explored?
 
 ## App has Player concept
 

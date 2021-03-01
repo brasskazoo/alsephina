@@ -14,6 +14,7 @@ export default class StarSystem implements ISystem {
     }
 
     explore(): void {
+        console.debug(`Exploring: ${this.name}`);
         this.explored = true;
     }
 }

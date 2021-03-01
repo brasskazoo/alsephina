@@ -1,34 +1,29 @@
 import React from 'react';
+import StarSystem from '../System/System';
 import Player from './Player';
 
 type Props = {
     player: Player;
+    exploredSystems: StarSystem[];
+    visibleSystems: StarSystem[];
     exploreSystem: (id: string) => void;
 };
 
-const PlayerComponent: React.FC<Props> = ({ player, exploreSystem }: Props) => {
+const PlayerComponent: React.FC<Props> = ({ player, exploredSystems, visibleSystems, exploreSystem }: Props) => {
     const playerSystemName = player.homeSystem.name;
 
-    const exploredSystems = player.knownSystems
-        .filter((sys) => {
-            return sys.explored === true;
-        })
-        .map((sys) => (
-            <div key={sys.name}>
-                <h3>{sys.name}</h3>
-            </div>
-        ));
+    const exploredSystemsDiv = exploredSystems.map((sys) => (
+        <div key={sys.name}>
+            <h3>{sys.name}</h3>
+        </div>
+    ));
 
-    const unexploredSystems = player.knownSystems
-        .filter((sys) => {
-            return sys.explored === false;
-        })
-        .map((sys) => (
-            <div key={sys.name}>
-                <h3>{sys.name}</h3>
-                <button onClick={() => exploreSystem(sys.name)}>Explore...</button>
-            </div>
-        ));
+    const unexploredSystemsDiv = visibleSystems.map((sys) => (
+        <div key={sys.name}>
+            <h3>{sys.name}</h3>
+            <button onClick={() => exploreSystem(sys.name)}>Explore...</button>
+        </div>
+    ));
 
     return (
         <div>
@@ -39,11 +34,11 @@ const PlayerComponent: React.FC<Props> = ({ player, exploreSystem }: Props) => {
             </fieldset>
             <fieldset>
                 <legend>Unexplored Systems</legend>
-                {unexploredSystems}
+                {unexploredSystemsDiv}
             </fieldset>
             <fieldset>
                 <legend>Explored Systems</legend>
-                {exploredSystems}
+                {exploredSystemsDiv}
             </fieldset>
         </div>
     );

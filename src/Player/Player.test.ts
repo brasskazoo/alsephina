@@ -21,6 +21,6 @@ test('Player can explore a system', () => {
     player.explore(player.visibleSystems[0].name);
 
     expect(player.exploredSystems).toHaveLength(1);
-    expect(player.visibleSystems.length).toBeLessThan(visibleSystemsCount);
-    // expect(player.visibleSystems.length).toBeLessThan(6);
+    expect(player.visibleSystems).not.toContain(player.exploredSystems[0]);
+    expect(player.visibleSystems.length).toBeLessThan(visibleSystemsCount + 4);
 });

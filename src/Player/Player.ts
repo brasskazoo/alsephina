@@ -20,7 +20,15 @@ export default class Player {
             this.exploredSystems.push(targetSystem);
             console.debug(`Explored: ${targetSystem.name}`);
 
-            // TODO Generate new detected systems
+            const newSystemCount = Math.floor(Math.random() * 5);
+            console.debug(`Discovered ${newSystemCount} new star systems`);
+
+            for (let i = 0; i < newSystemCount; i++) {
+                const s = new StarSystem();
+                console.debug(`Discovered: ${s.name}`);
+                // TODO Check for duplicate IDs
+                this.visibleSystems.push(s);
+            }
 
             this.visibleSystems = this.visibleSystems.filter((sys) => sys !== targetSystem);
         }

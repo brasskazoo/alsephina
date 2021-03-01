@@ -9,6 +9,18 @@ test('Player has home system', () => {
 test('Player has unexplored systems', () => {
     const player = new Player();
 
-    expect(player).toHaveProperty('knownSystems');
-    expect(player.knownSystems).toHaveLength(3);
+    expect(player).toHaveProperty('visibleSystems');
+    expect(player.visibleSystems).toHaveLength(3);
+});
+
+test('Player can explore a system', () => {
+    const player = new Player();
+
+    const visibleSystemsCount = player.visibleSystems.length;
+
+    player.explore(player.visibleSystems[0].name);
+
+    expect(player.exploredSystems).toHaveLength(1);
+    expect(player.visibleSystems.length).toBeLessThan(visibleSystemsCount);
+    // expect(player.visibleSystems.length).toBeLessThan(6);
 });

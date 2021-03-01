@@ -3,11 +3,21 @@ import Player from './Player';
 
 type Props = {
     player: Player;
+    exploreSystem: (id: string) => void;
 };
 
-const PlayerComponent: React.FC<Props> = ({ player }: Props) => {
-    // let unexploredSystems: StarSystem[] = player.knownSystems;
+const PlayerComponent: React.FC<Props> = ({ player, exploreSystem }: Props) => {
     const playerSystemName = player.homeSystem.name;
+
+    const exploredSystems = player.knownSystems
+        .filter((sys) => {
+            return sys.explored === true;
+        })
+        .map((sys) => (
+            <div key={sys.name}>
+                <h3>{sys.name}</h3>
+            </div>
+        ));
 
     const unexploredSystems = player.knownSystems
         .filter((sys) => {
@@ -16,7 +26,7 @@ const PlayerComponent: React.FC<Props> = ({ player }: Props) => {
         .map((sys) => (
             <div key={sys.name}>
                 <h3>{sys.name}</h3>
-                <button>Explore...</button>
+                <button onClick={() => exploreSystem(sys.name)}>Explore...</button>
             </div>
         ));
 
@@ -30,6 +40,10 @@ const PlayerComponent: React.FC<Props> = ({ player }: Props) => {
             <fieldset>
                 <legend>Unexplored Systems</legend>
                 {unexploredSystems}
+            </fieldset>
+            <fieldset>
+                <legend>Explored Systems</legend>
+                {exploredSystems}
             </fieldset>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import StarSystem from '../System/System';
+import StarSystem, { SystemEnvironment } from '../System/System';
 import Player from './Player';
 
 type Props = {
@@ -15,6 +15,7 @@ const PlayerComponent: React.FC<Props> = ({ player, exploredSystems, visibleSyst
     const exploredSystemsDiv = exploredSystems.map((sys) => (
         <div key={sys.name}>
             <h3>{sys.name}</h3>
+            <span>{SystemEnvironment[sys.environment]}</span>
         </div>
     ));
 
@@ -31,6 +32,7 @@ const PlayerComponent: React.FC<Props> = ({ player, exploredSystems, visibleSyst
             <fieldset>
                 <legend>Home</legend>
                 <h3>{playerSystemName}</h3>
+                <span>{SystemEnvironment[player.homeSystem.environment]}</span>
             </fieldset>
             <fieldset>
                 <legend>Unexplored Systems</legend>

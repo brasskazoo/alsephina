@@ -1,8 +1,9 @@
 import StarSystem, { SystemEnvironment } from './System';
 
-test('can create a star system with default name', () => {
+test('star system has a default name', () => {
     const system = new StarSystem();
     expect(system).toHaveProperty('name');
+    expect(system.name).not.toBeNull();
 });
 
 test('star system has an environment suitability', () => {

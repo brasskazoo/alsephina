@@ -10,6 +10,7 @@ function App(): React.ReactElement {
         thePlayer.explore(id);
 
         updatePlayer(thePlayer);
+        updateColonisedSystems(thePlayer.colonisedSystems);
         updateExploredSystems(thePlayer.exploredSystems);
         updateVisibleSystems(thePlayer.visibleSystems);
     };
@@ -17,11 +18,13 @@ function App(): React.ReactElement {
     const [thePlayer, updatePlayer] = useState(player);
     const [exploredSystems, updateExploredSystems] = useState<StarSystem[]>(thePlayer.exploredSystems);
     const [visibleSystems, updateVisibleSystems] = useState<StarSystem[]>(thePlayer.visibleSystems);
+    const [colonisedSystems, updateColonisedSystems] = useState<StarSystem[]>(thePlayer.colonisedSystems);
 
     return (
         <div className="App">
             <PlayerComponent
                 player={player}
+                colonisedSystems={colonisedSystems}
                 exploredSystems={exploredSystems}
                 visibleSystems={visibleSystems}
                 exploreSystem={handleExploreSystem}

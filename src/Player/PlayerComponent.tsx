@@ -4,13 +4,28 @@ import Player from './Player';
 
 type Props = {
     player: Player;
+    colonisedSystems: StarSystem[];
     exploredSystems: StarSystem[];
     visibleSystems: StarSystem[];
     exploreSystem: (id: string) => void;
 };
 
-const PlayerComponent: React.FC<Props> = ({ player, exploredSystems, visibleSystems, exploreSystem }: Props) => {
-    const playerSystemName = player.homeSystem.name;
+const PlayerComponent: React.FC<Props> = ({
+    player,
+    colonisedSystems,
+    exploredSystems,
+    visibleSystems,
+    exploreSystem,
+}: Props) => {
+    const colonisedSystemsDiv = colonisedSystems.map((sys) => (
+        <div key={sys.name}>
+            <h3>
+                {sys.name}
+                {sys.name === player.homeSystemName ? ' [Home]' : ''}
+            </h3>
+            <span>{SystemEnvironment[sys.environment]}</span>
+        </div>
+    ));
 
     const exploredSystemsDiv = exploredSystems.map((sys) => (
         <div key={sys.name}>
@@ -30,9 +45,8 @@ const PlayerComponent: React.FC<Props> = ({ player, exploredSystems, visibleSyst
         <div>
             <h2>Player</h2>
             <fieldset>
-                <legend>Home</legend>
-                <h3>{playerSystemName}</h3>
-                <span>{SystemEnvironment[player.homeSystem.environment]}</span>
+                <legend>My Systems</legend>
+                {colonisedSystemsDiv}
             </fieldset>
             <fieldset>
                 <legend>Unexplored Systems</legend>

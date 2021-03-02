@@ -1,14 +1,17 @@
 import StarSystem, { SystemEnvironment } from '../System/System';
 
 export default class Player {
-    homeSystem: StarSystem;
+    homeSystemName: string;
+    colonisedSystems: StarSystem[];
     visibleSystems: StarSystem[];
     exploredSystems: StarSystem[];
 
     constructor() {
-        this.homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
-        console.debug(`New Player at ${this.homeSystem.name}`);
+        const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
+        console.debug(`New Player at ${homeSystem.name}`);
 
+        this.homeSystemName = homeSystem.name;
+        this.colonisedSystems = [homeSystem];
         this.visibleSystems = [new StarSystem(), new StarSystem(), new StarSystem()];
         this.exploredSystems = [];
     }

@@ -1,9 +1,11 @@
 import Player from './Player';
 
-test('Player has home system', () => {
+test('Player start with a colonised home system', () => {
     const player = new Player();
 
-    expect(player).toHaveProperty('homeSystem');
+    expect(player.homeSystemName).not.toBeNull();
+    expect(player.colonisedSystems).toHaveLength(1);
+    expect(player.colonisedSystems[0].name).toEqual(player.homeSystemName);
 });
 
 test('Player has unexplored systems', () => {

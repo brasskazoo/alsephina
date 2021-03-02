@@ -2,7 +2,7 @@
 
 As a Player I want to create a new Player so that I can play the game
 
-[x] Player starts with 1 home system
+[x] Player starts with 1 colonised home system
 [x] Player starts with 3 unexplored systems
 
 # Scenario: I can explore star systems
@@ -48,8 +48,7 @@ As a player I want to generate energy so I can perform actions
 [x] A player has a home system with a suitable environment
 [x] A player has visible systems
 [x] A player has explored systems
-
--   A player has colonised systems
+[x] A player has colonised systems
 
 ---
 

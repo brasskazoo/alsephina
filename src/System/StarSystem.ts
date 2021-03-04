@@ -1,3 +1,9 @@
+import { customAlphabet } from 'nanoid';
+
+// NanoID Configuration
+const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const nanoid = customAlphabet(alphabet, 6);
+
 export enum SystemEnvironment {
     NOT_HABITABLE,
     HOSTILE,
@@ -5,16 +11,19 @@ export enum SystemEnvironment {
 }
 
 interface ISystem {
+    id: string;
     name: string;
     environment: SystemEnvironment;
 }
 
 export default class StarSystem implements ISystem {
+    id: string;
     name: string;
     environment: SystemEnvironment;
 
     constructor(environment?: SystemEnvironment) {
-        this.name = 'system' + Math.floor(100 * Math.random());
+        this.id = nanoid();
+        this.name = 'System_' + this.id;
         this.environment = environment ? environment : randomEnum(SystemEnvironment);
     }
 }

@@ -1,4 +1,4 @@
-import StarSystem, { SystemEnvironment } from '../System/System';
+import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 import Player from './Player';
 
 test('Player start with a colonised home system', () => {

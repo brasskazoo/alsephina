@@ -1,4 +1,4 @@
-import StarSystem, { SystemEnvironment } from '../System/System';
+import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 
 export default class Player {
     homeSystemName: string;

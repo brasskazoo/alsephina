@@ -1,5 +1,5 @@
 import React from 'react';
-import StarSystem, { SystemEnvironment } from '../System/System';
+import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 import Player from './Player';
 
 type Props = {

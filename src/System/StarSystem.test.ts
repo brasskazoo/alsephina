@@ -1,4 +1,4 @@
-import StarSystem, { SystemEnvironment } from './System';
+import StarSystem, { SystemEnvironment } from './StarSystem';
 
 test('star system has a default name', () => {
     const system = new StarSystem();

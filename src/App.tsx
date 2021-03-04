@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PlayerComponent from './Player/PlayerComponent';
 import Player from './Player/Player';
-import StarSystem from './System/System';
+import StarSystem from './System/StarSystem';
 
 const player = new Player();
 

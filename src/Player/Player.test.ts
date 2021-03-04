@@ -28,6 +28,24 @@ test('Player can explore a system', () => {
     expect(player.visibleSystems.length).toBeLessThan(visibleSystemsCount + 4);
 });
 
+test('Player cannot explore an unknown system', () => {
+    const player = new Player();
+    const sys = new StarSystem();
+
+    const block = () => {
+        player.explore(sys.name);
+    };
+    expect(block).toThrowError(`Cannot explore system ${sys.name}: Could not find matching visible system`);
+});
+
+test('Player can colonise suitable environments', () => {
+    const player = new Player();
+
+    expect(player.canColonise(SystemEnvironment.SUITABLE)).toBe(true);
+    expect(player.canColonise(SystemEnvironment.NOT_HABITABLE)).toBe(false);
+    expect(player.canColonise(SystemEnvironment.HOSTILE)).toBe(false);
+});
+
 test('Player can colonise a system', () => {
     const player = new Player();
 

@@ -34,14 +34,20 @@ export default class Player {
             }
 
             this.visibleSystems = this.visibleSystems.filter((sys) => sys !== targetSystem);
+        } else {
+            throw `Cannot explore system ${systemId}: Could not find matching visible system`;
         }
     }
+
+    canColonise = (sysEnv: SystemEnvironment): boolean => {
+        return sysEnv === SystemEnvironment.SUITABLE;
+    };
 
     colonise(systemId: string): void {
         const targetSystem = this.exploredSystems.find((item) => systemId === item.name);
 
         if (targetSystem) {
-            if (targetSystem.environment !== SystemEnvironment.SUITABLE) {
+            if (!this.canColonise(targetSystem.environment)) {
                 throw `Cannot colonise system ${systemId}: Not a suitable environment`;
             }
             this.colonisedSystems.push(targetSystem);

@@ -36,4 +36,21 @@ export default class Player {
             this.visibleSystems = this.visibleSystems.filter((sys) => sys !== targetSystem);
         }
     }
+
+    colonise(systemId: string): void {
+        const targetSystem = this.exploredSystems.find((item) => systemId === item.name);
+
+        if (targetSystem) {
+            if (targetSystem.environment !== SystemEnvironment.SUITABLE) {
+                throw `Cannot colonise system ${systemId}: Not a suitable environment`;
+            }
+            this.colonisedSystems.push(targetSystem);
+            // TODO set a colonised flag on StarSystem?
+            console.debug(`Colonised: ${targetSystem.name}`);
+
+            this.exploredSystems = this.exploredSystems.filter((sys) => sys !== targetSystem);
+        } else {
+            throw `Cannot colonise system ${systemId}: Could not find matching explored system`;
+        }
+    }
 }

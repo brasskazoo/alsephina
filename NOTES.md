@@ -21,7 +21,9 @@ As a player I want to colonise star systems so that I can increase my population
 
 _Note: We're simplifying the concept of 'planets' for now by colonising entire systems_
 
--   Player can colonise a star system that has a suitable environment
+[x] Player can colonise a star system that has a suitable environment
+[x] Player cannot colonise a star system with unsuitable environment, unexplored or not visible
+
 -   [Future] Colonising systems uses energy
 
 # Scenario: My star systems generate energy
@@ -71,3 +73,7 @@ As a player I want to generate energy so I can perform actions
         <span>{energy}</span>
     </div>
 ```
+
+## Other notes
+
+- Need to handle thrown errors

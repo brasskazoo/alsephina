@@ -15,6 +15,15 @@ function App(): React.ReactElement {
         updateVisibleSystems(thePlayer.visibleSystems);
     };
 
+    const handleColoniseSystem = (id: string) => {
+        thePlayer.colonise(id);
+
+        updatePlayer(thePlayer);
+        updateColonisedSystems(thePlayer.colonisedSystems);
+        updateExploredSystems(thePlayer.exploredSystems);
+        updateVisibleSystems(thePlayer.visibleSystems);
+    };
+
     const [thePlayer, updatePlayer] = useState(player);
     const [exploredSystems, updateExploredSystems] = useState<StarSystem[]>(thePlayer.exploredSystems);
     const [visibleSystems, updateVisibleSystems] = useState<StarSystem[]>(thePlayer.visibleSystems);
@@ -28,6 +37,7 @@ function App(): React.ReactElement {
                 exploredSystems={exploredSystems}
                 visibleSystems={visibleSystems}
                 exploreSystem={handleExploreSystem}
+                coloniseSystem={handleColoniseSystem}
             />
         </div>
     );

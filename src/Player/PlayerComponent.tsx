@@ -8,6 +8,7 @@ type Props = {
     exploredSystems: StarSystem[];
     visibleSystems: StarSystem[];
     exploreSystem: (id: string) => void;
+    coloniseSystem: (id: string) => void;
 };
 
 const PlayerComponent: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const PlayerComponent: React.FC<Props> = ({
     exploredSystems,
     visibleSystems,
     exploreSystem,
+    coloniseSystem,
 }: Props) => {
     const colonisedSystemsDiv = colonisedSystems.map((sys) => (
         <div key={sys.name}>
@@ -31,6 +33,11 @@ const PlayerComponent: React.FC<Props> = ({
         <div key={sys.name}>
             <h3>{sys.name}</h3>
             <span>{SystemEnvironment[sys.environment]}</span>
+            <span>
+                {player.canColonise(sys.environment) && (
+                    <button onClick={() => coloniseSystem(sys.name)}>Colonise...</button>
+                )}
+            </span>
         </div>
     ));
 

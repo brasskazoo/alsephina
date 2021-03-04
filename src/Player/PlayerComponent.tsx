@@ -20,31 +20,31 @@ const PlayerComponent: React.FC<Props> = ({
     coloniseSystem,
 }: Props) => {
     const colonisedSystemsDiv = colonisedSystems.map((sys) => (
-        <div key={sys.name}>
+        <div key={sys.id}>
             <h3>
                 {sys.name}
-                {sys.name === player.homeSystemName ? ' [Home]' : ''}
+                {sys.id === player.homeSystemId ? ' [Home]' : ''}
             </h3>
             <span>{SystemEnvironment[sys.environment]}</span>
         </div>
     ));
 
     const exploredSystemsDiv = exploredSystems.map((sys) => (
-        <div key={sys.name}>
+        <div key={sys.id}>
             <h3>{sys.name}</h3>
             <span>{SystemEnvironment[sys.environment]}</span>
             <span>
                 {player.canColonise(sys.environment) && (
-                    <button onClick={() => coloniseSystem(sys.name)}>Colonise...</button>
+                    <button onClick={() => coloniseSystem(sys.id)}>Colonise...</button>
                 )}
             </span>
         </div>
     ));
 
     const unexploredSystemsDiv = visibleSystems.map((sys) => (
-        <div key={sys.name}>
+        <div key={sys.id}>
             <h3>{sys.name}</h3>
-            <button onClick={() => exploreSystem(sys.name)}>Explore...</button>
+            <button onClick={() => exploreSystem(sys.id)}>Explore...</button>
         </div>
     ));
 

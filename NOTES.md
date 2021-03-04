@@ -38,6 +38,7 @@ As a player I want to generate energy so I can perform actions
 
 ## App has a StarSystem concept
 
+[x] A system has an ID - See: https://zelark.github.io/nano-id-cc/ 
 [x] A system has a name
 [x] A system has environment suitability
 

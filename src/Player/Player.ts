@@ -1,7 +1,7 @@
 import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 
 export default class Player {
-    homeSystemName: string;
+    homeSystemId: string;
     colonisedSystems: StarSystem[];
     visibleSystems: StarSystem[];
     exploredSystems: StarSystem[];
@@ -10,14 +10,14 @@ export default class Player {
         const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
         console.debug(`New Player at ${homeSystem.name}`);
 
-        this.homeSystemName = homeSystem.name;
+        this.homeSystemId = homeSystem.id;
         this.colonisedSystems = [homeSystem];
         this.visibleSystems = [new StarSystem(), new StarSystem(), new StarSystem()];
         this.exploredSystems = [];
     }
 
     explore(systemId: string): void {
-        const targetSystem = this.visibleSystems.find((item) => systemId === item.name);
+        const targetSystem = this.visibleSystems.find((item) => systemId === item.id);
 
         if (targetSystem) {
             this.exploredSystems.push(targetSystem);
@@ -44,7 +44,7 @@ export default class Player {
     };
 
     colonise(systemId: string): void {
-        const targetSystem = this.exploredSystems.find((item) => systemId === item.name);
+        const targetSystem = this.exploredSystems.find((item) => systemId === item.id);
 
         if (targetSystem) {
             if (!this.canColonise(targetSystem.environment)) {

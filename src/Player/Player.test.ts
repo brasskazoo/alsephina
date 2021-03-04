@@ -4,9 +4,9 @@ import Player from './Player';
 test('Player start with a colonised home system', () => {
     const player = new Player();
 
-    expect(player.homeSystemName).not.toBeNull();
+    expect(player.homeSystemId).not.toBeNull();
     expect(player.colonisedSystems).toHaveLength(1);
-    expect(player.colonisedSystems[0].name).toEqual(player.homeSystemName);
+    expect(player.colonisedSystems[0].id).toEqual(player.homeSystemId);
 });
 
 test('Player has unexplored systems', () => {
@@ -21,7 +21,7 @@ test('Player can explore a system', () => {
 
     const visibleSystemsCount = player.visibleSystems.length;
 
-    player.explore(player.visibleSystems[0].name);
+    player.explore(player.visibleSystems[0].id);
 
     expect(player.exploredSystems).toHaveLength(1);
     expect(player.visibleSystems).not.toContain(player.exploredSystems[0]);
@@ -33,9 +33,9 @@ test('Player cannot explore an unknown system', () => {
     const sys = new StarSystem();
 
     const block = () => {
-        player.explore(sys.name);
+        player.explore(sys.id);
     };
-    expect(block).toThrowError(`Cannot explore system ${sys.name}: Could not find matching visible system`);
+    expect(block).toThrowError(`Cannot explore system ${sys.id}: Could not find matching visible system`);
 });
 
 test('Player can colonise suitable environments', () => {
@@ -52,7 +52,7 @@ test('Player can colonise a system', () => {
     const sys = new StarSystem(SystemEnvironment.SUITABLE);
     player.exploredSystems.push(sys);
 
-    player.colonise(sys.name);
+    player.colonise(sys.id);
     expect(player.colonisedSystems).toHaveLength(2);
 });
 
@@ -62,9 +62,9 @@ test('Player cannot colonise an unsuitable system', () => {
 
     const block = () => {
         player.exploredSystems.push(sys);
-        player.colonise(sys.name);
+        player.colonise(sys.id);
     };
-    expect(block).toThrowError(`Cannot colonise system ${sys.name}: Not a suitable environment`);
+    expect(block).toThrowError(`Cannot colonise system ${sys.id}: Not a suitable environment`);
 });
 
 /**
@@ -75,9 +75,9 @@ test('Player cannot colonise an unknown system', () => {
     const sys = new StarSystem(SystemEnvironment.HOSTILE);
 
     const block = () => {
-        player.colonise(sys.name);
+        player.colonise(sys.id);
     };
-    expect(block).toThrowError(`Cannot colonise system ${sys.name}: Could not find matching explored system`);
+    expect(block).toThrowError(`Cannot colonise system ${sys.id}: Could not find matching explored system`);
 });
 
 test('Player cannot colonise an unexplored system', () => {
@@ -85,9 +85,9 @@ test('Player cannot colonise an unexplored system', () => {
     const sys = player.visibleSystems[0];
 
     const block = () => {
-        player.colonise(sys.name);
+        player.colonise(sys.id);
     };
-    expect(block).toThrowError(`Cannot colonise system ${sys.name}: Could not find matching explored system`);
+    expect(block).toThrowError(`Cannot colonise system ${sys.id}: Could not find matching explored system`);
 });
 
 test('Player cannot colonise a previously colonised system', () => {
@@ -95,7 +95,7 @@ test('Player cannot colonise a previously colonised system', () => {
     const sys = player.colonisedSystems[0];
 
     const block = () => {
-        player.colonise(sys.name);
+        player.colonise(sys.id);
     };
-    expect(block).toThrowError(`Cannot colonise system ${sys.name}: Could not find matching explored system`);
+    expect(block).toThrowError(`Cannot colonise system ${sys.id}: Could not find matching explored system`);
 });

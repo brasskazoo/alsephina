@@ -1,12 +1,15 @@
 import StarSystem, { SystemEnvironment } from '../System/StarSystem';
+import { generateId } from '../util/EntityId';
 
 export default class Player {
+    id: string;
     homeSystemId: string;
     colonisedSystems: StarSystem[];
     visibleSystems: StarSystem[];
     exploredSystems: StarSystem[];
 
     constructor() {
+        this.id = generateId();
         const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
         console.debug(`New Player at ${homeSystem.name}`);
 

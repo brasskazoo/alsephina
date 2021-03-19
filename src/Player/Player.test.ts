@@ -1,6 +1,12 @@
 import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 import Player from './Player';
 
+test('New Player has an id', () => {
+    const player = new Player();
+
+    expect(player.id).not.toBeNull();
+});
+
 test('Player start with a colonised home system', () => {
     const player = new Player();
 

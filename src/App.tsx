@@ -31,6 +31,7 @@ function App(): React.ReactElement {
 
     return (
         <div className="App">
+            <h1>Ascension to Alsephina</h1>
             <PlayerComponent
                 player={player}
                 colonisedSystems={colonisedSystems}

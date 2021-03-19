@@ -1,8 +1,5 @@
-import { customAlphabet } from 'nanoid';
-
-// NanoID Configuration
-const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const nanoid = customAlphabet(alphabet, 6);
+import Colony from '../StarSystemColony/Colony';
+import { generateId } from '../util/EntityId';
 
 export enum SystemEnvironment {
     NOT_HABITABLE,
@@ -20,11 +17,13 @@ export default class StarSystem implements ISystem {
     id: string;
     name: string;
     environment: SystemEnvironment;
+    colony: Colony | undefined;
 
-    constructor(environment?: SystemEnvironment) {
-        this.id = nanoid();
+    constructor(environment?: SystemEnvironment, colony?: Colony) {
+        this.id = generateId();
         this.name = 'System_' + this.id;
         this.environment = environment ? environment : randomEnum(SystemEnvironment);
+        this.colony = colony;
     }
 }
 

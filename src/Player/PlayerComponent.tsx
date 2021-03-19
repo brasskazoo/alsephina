@@ -25,7 +25,7 @@ const PlayerComponent: React.FC<Props> = ({
                 {sys.name}
                 {sys.id === player.homeSystemId ? ' [Home]' : ''}
             </h3>
-            <span>{SystemEnvironment[sys.environment]}</span>
+            <span>POP: {sys.colony?.population}</span>
         </div>
     ));
 

@@ -1,3 +1,4 @@
+import Colony from '../StarSystemColony/Colony';
 import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 import { generateId } from '../util/EntityId';
 
@@ -11,6 +12,7 @@ export default class Player {
     constructor() {
         this.id = generateId();
         const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
+        homeSystem.colony = new Colony(homeSystem.id, this.id, 100);
         console.debug(`New Player at ${homeSystem.name}`);
 
         this.homeSystemId = homeSystem.id;
@@ -53,8 +55,10 @@ export default class Player {
             if (!this.canColonise(targetSystem.environment)) {
                 throw `Cannot colonise system ${systemId}: Not a suitable environment`;
             }
+
+            targetSystem.colony = new Colony(systemId, this.id, 0.1);
             this.colonisedSystems.push(targetSystem);
-            // TODO set a colonised flag on StarSystem?
+
             console.debug(`Colonised: ${targetSystem.name}`);
 
             this.exploredSystems = this.exploredSystems.filter((sys) => sys !== targetSystem);

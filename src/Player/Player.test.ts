@@ -13,6 +13,7 @@ test('Player start with a colonised home system', () => {
     expect(player.homeSystemId).not.toBeNull();
     expect(player.colonisedSystems).toHaveLength(1);
     expect(player.colonisedSystems[0].id).toEqual(player.homeSystemId);
+    expect(player.colonisedSystems[0].colony).not.toBeNull();
 });
 
 test('Player has unexplored systems', () => {

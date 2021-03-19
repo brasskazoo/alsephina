@@ -3,6 +3,7 @@
 As a Player I want to create a new Player so that I can play the game
 
 [x] Player starts with 1 colonised home system
+[x] Home sytem starts with an initial population of 100m
 [x] Player starts with 3 unexplored systems
 
 # Scenario: I can explore star systems
@@ -22,8 +23,10 @@ As a player I want to colonise star systems so that I can increase my population
 _Note: We're simplifying the concept of 'planets' for now by colonising entire systems_
 
 [x] Player can colonise a star system that has a suitable environment
-[x] Player cannot colonise a star system with unsuitable environment, unexplored or not visible
+[x] Player cannot colonise a star system with unsuitable environment, an existing colony, unexplored or not visible
+[x] Initial colony population 0.1m 
 
+-   [Future] Initial colony population 0.1-0.4m, or custom amount subtracted from home
 -   [Future] Colonising systems uses energy
 
 # Scenario: My star systems generate energy
@@ -42,6 +45,8 @@ As a player I want to generate energy so I can perform actions
 [x] A system has a name
 [x] A system has environment suitability
 
+- Population growth (1%/yr, 0.0833)
+
 -   [Future] system environment types to enable population effects and terraforming e.g. https://en.wikipedia.org/wiki/List_of_planet_types
 -   [Future] has planets
 -   [Future] Distance from player? or other explored?
@@ -52,6 +57,13 @@ As a player I want to generate energy so I can perform actions
 [x] A player has visible systems
 [x] A player has explored systems
 [x] A player has colonised systems
+
+## App has Colony concept
+
+- A colony has an associated star system
+- A colony is owned by a player
+- A colony has a population
+
 
 ---
 
@@ -78,3 +90,4 @@ As a player I want to generate energy so I can perform actions
 ## Other notes
 
 - Need to handle thrown errors
+- https://www.space.com/26603-interstellar-starship-colony-population-size.html

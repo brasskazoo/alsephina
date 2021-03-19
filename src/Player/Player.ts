@@ -56,6 +56,10 @@ export default class Player {
                 throw `Cannot colonise system ${systemId}: Not a suitable environment`;
             }
 
+            if (targetSystem.colony) {
+                throw `Cannot colonise system ${systemId}: Already colonised`;
+            }
+
             targetSystem.colony = new Colony(systemId, this.id, 0.1);
             this.colonisedSystems.push(targetSystem);
 

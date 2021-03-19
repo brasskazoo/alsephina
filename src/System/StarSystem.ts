@@ -21,7 +21,7 @@ export default class StarSystem implements ISystem {
 
     constructor(environment?: SystemEnvironment, colony?: Colony) {
         this.id = generateId();
-        this.name = 'System_' + this.id;
+        this.name = 'S-' + this.id;
         this.environment = environment ? environment : randomEnum(SystemEnvironment);
         this.colony = colony;
     }

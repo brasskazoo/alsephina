@@ -36,6 +36,9 @@ As a player I want to generate energy so I can perform actions
 -   A star system generates energy at a rate based on population
 -   Player can store a maximum energy
 -   Player's energy stores are replenished from systems periodically (TBD - 1 sec, 30 secs..)
+-   Energy is expended when exploring/colonising
+
+-   [Future] Energy production determines scientific output
 
 # Conceptual Objects
 
@@ -44,8 +47,6 @@ As a player I want to generate energy so I can perform actions
 [x] A system has an ID - See: https://zelark.github.io/nano-id-cc/ 
 [x] A system has a name
 [x] A system has environment suitability
-
-- Population growth (1%/yr, 0.0833)
 
 -   [Future] system environment types to enable population effects and terraforming e.g. https://en.wikipedia.org/wiki/List_of_planet_types
 -   [Future] has planets
@@ -60,10 +61,9 @@ As a player I want to generate energy so I can perform actions
 
 ## App has Colony concept
 
-- A colony has an associated star system
-- A colony is owned by a player
-- A colony has a population
-
+[x] A colony has an associated star system
+[x] A colony is owned by a player
+[x] A colony has a population
 
 ---
 

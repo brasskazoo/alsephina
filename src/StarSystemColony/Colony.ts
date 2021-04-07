@@ -12,6 +12,6 @@ export default class Colony {
         this.systemId = systemId;
         this.playerId = playerId;
         this.population = population;
-        this.maxPopulation = Math.floor(Math.random() * 10) * population;
+        this.maxPopulation = Math.floor(Math.random() * 10) * 20000000;
     }
 }

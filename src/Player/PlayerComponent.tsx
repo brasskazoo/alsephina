@@ -21,9 +21,11 @@ const PlayerComponent: React.FC<Props> = ({
 }: Props) => {
     const colonisedSystemsDiv = colonisedSystems.map((sys) => {
         let popString;
+        let maxPopString;
         if (sys.colony) {
             const popByMillion = sys.colony.population / 1000000;
             popString = popByMillion > 1 ? Math.round(popByMillion) : popByMillion.toFixed(1);
+            maxPopString = sys.colony.maxPopulation / 1000000;
         }
 
         return (
@@ -32,7 +34,9 @@ const PlayerComponent: React.FC<Props> = ({
                     {sys.name}
                     {sys.id === player.homeSystemId ? ' [Home]' : ''}
                 </h3>
-                <span>Population: {popString}</span>
+                <span>
+                    Population: {popString}m (max {maxPopString})
+                </span>
             </div>
         );
     });

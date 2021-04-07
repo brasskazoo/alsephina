@@ -12,7 +12,7 @@ export default class Player {
     constructor() {
         this.id = generateId();
         const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
-        homeSystem.colony = new Colony(homeSystem.id, this.id, 100000000);
+        homeSystem.colony = new Colony(homeSystem.id, this.id, 10000000);
         console.debug(`New Player at ${homeSystem.name}`);
 
         this.homeSystemId = homeSystem.id;

@@ -19,15 +19,23 @@ const PlayerComponent: React.FC<Props> = ({
     exploreSystem,
     coloniseSystem,
 }: Props) => {
-    const colonisedSystemsDiv = colonisedSystems.map((sys) => (
-        <div key={sys.id}>
-            <h3>
-                {sys.name}
-                {sys.id === player.homeSystemId ? ' [Home]' : ''}
-            </h3>
-            <span>POP: {sys.colony?.population}</span>
-        </div>
-    ));
+    const colonisedSystemsDiv = colonisedSystems.map((sys) => {
+        let popString;
+        if (sys.colony) {
+            const popByMillion = sys.colony.population / 1000000;
+            popString = popByMillion > 1 ? Math.round(popByMillion) : popByMillion.toFixed(1);
+        }
+
+        return (
+            <div key={sys.id}>
+                <h3>
+                    {sys.name}
+                    {sys.id === player.homeSystemId ? ' [Home]' : ''}
+                </h3>
+                <span>Population: {popString}</span>
+            </div>
+        );
+    });
 
     const exploredSystemsDiv = exploredSystems.map((sys) => (
         <div key={sys.id}>

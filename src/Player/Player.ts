@@ -12,7 +12,7 @@ export default class Player {
     constructor() {
         this.id = generateId();
         const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
-        homeSystem.colony = new Colony(homeSystem.id, this.id, 100);
+        homeSystem.colony = new Colony(homeSystem.id, this.id, 100000000);
         console.debug(`New Player at ${homeSystem.name}`);
 
         this.homeSystemId = homeSystem.id;
@@ -60,7 +60,7 @@ export default class Player {
                 throw `Cannot colonise system ${systemId}: Already colonised`;
             }
 
-            targetSystem.colony = new Colony(systemId, this.id, 0.1);
+            targetSystem.colony = new Colony(systemId, this.id, 100000);
             this.colonisedSystems.push(targetSystem);
 
             console.debug(`Colonised: ${targetSystem.name}`);

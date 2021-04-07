@@ -1,4 +1,12 @@
 /**
+ * @param currentPop Current colony population, in millions
+ * @param maxPop Maximum sustainable colony population, in millions
+ */
+export const colonyPopulationGrowth = (currentPop: number, maxPop: number): number => {
+    return wolframGrowth(currentPop, maxPop);
+};
+
+/**
  * Population growth formula from Wolfram Alpha, using a max sustainable population to shape an expotenial function.
  *
  * The equation is: N = (K N_0)/(N_0 + (K - N_0) e^(-r t))
@@ -14,7 +22,7 @@
  * @param growthRate Rate of maximum population growth (defaults to 0.3) - i.e. the maximum increase per population
  * @param period Time period (defaults to 1) - i.e. number of years
  */
-export const wolframGrowth = (currentPop: number, maxPop: number, growthRate = 0.3, period = 1): number => {
+const wolframGrowth = (currentPop: number, maxPop: number, growthRate = 0.3, period = 1): number => {
     const exp = Math.pow(Math.E, -growthRate * period);
 
     return Math.round((maxPop * currentPop) / (currentPop + (maxPop - currentPop) * exp));

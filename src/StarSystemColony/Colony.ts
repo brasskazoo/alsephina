@@ -5,11 +5,13 @@ export default class Colony {
     systemId: string;
     playerId: string;
     population: number;
+    maxPopulation: number;
 
     constructor(systemId: string, playerId: string, population: number) {
         this.id = generateId();
         this.systemId = systemId;
         this.playerId = playerId;
         this.population = population;
+        this.maxPopulation = Math.floor(Math.random() * 10) * population;
     }
 }

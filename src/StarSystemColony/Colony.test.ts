@@ -2,12 +2,23 @@ import StarSystem, { SystemEnvironment } from '../System/StarSystem';
 import Player from '../Player/Player';
 import Colony from './Colony';
 
+const ONE_HUNDRED_MILLION = 100000000;
+const ONE_HUNDRED_THOUSAND = 100000;
+
 // Integration tests
 test('New Player colony has default population', () => {
     const player = new Player();
     const colony = player.colonisedSystems[0].colony;
     expect(colony).not.toBeNull();
-    expect(colony?.population).toBe(100);
+    expect(colony?.population).toBe(100000000);
+});
+
+test('New player colony has a max population', () => {
+    const player = new Player();
+    const colony = player.colonisedSystems[0].colony;
+
+    expect(colony?.maxPopulation).toBeGreaterThan(ONE_HUNDRED_MILLION);
+    expect(colony?.maxPopulation).toBeLessThan(10 * ONE_HUNDRED_MILLION);
 });
 
 test('Player can colonise a system', () => {
@@ -20,7 +31,9 @@ test('Player can colonise a system', () => {
     expect(player.colonisedSystems).toHaveLength(2);
     expect(sys.colony?.playerId).toBe(player.id);
     expect(sys.colony?.systemId).toBe(sys.id);
-    expect(sys.colony?.population).toBe(0.1);
+    expect(sys.colony?.population).toBe(100000);
+    expect(sys.colony?.maxPopulation).toBeGreaterThan(ONE_HUNDRED_THOUSAND);
+    expect(sys.colony?.maxPopulation).toBeLessThan(10 * ONE_HUNDRED_THOUSAND);
 });
 
 test('Player cannot colonise an existing colonised system', () => {

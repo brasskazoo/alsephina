@@ -1,6 +1,14 @@
 import { generateId } from '../util/EntityId';
 
-export default class Colony {
+export type ColonyType = {
+    id: string;
+    systemId: string;
+    playerId: string;
+    population: number;
+    maxPopulation: number;
+};
+
+export default class Colony implements ColonyType {
     id: string;
     systemId: string;
     playerId: string;

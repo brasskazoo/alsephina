@@ -1,8 +1,9 @@
 import { Service } from './ServiceFactory';
 import postal from 'postal';
-import Colony from '../StarSystemColony/Colony';
+import Colony, { ColonyType } from '../StarSystemColony/Colony';
+import { StarSystemType } from '../System/StarSystem';
 
-const coloniesByPlayer: Record<string, Record<string, Colony>> = {};
+const coloniesByPlayer: Record<string, ColonyType[]> = {};
 
 export default class ColonyService implements Service {
     name = 'ColonyService';
@@ -16,24 +17,25 @@ export default class ColonyService implements Service {
                 console.log(env);
                 console.log(`ColonyService: [IN] ${JSON.stringify(data)}`);
                 const playerId = data.player.id;
+                const homeSystemId = data.player.homeSystemId;
 
                 if (playerId && data.player.visibleSystems) {
-                    const homeSystem = data.player.visibleSystems[0];
-                    const homeSystemId = data.player.visibleSystems[0].id;
+                    const homeSystem = data.player.visibleSystems.find(
+                        (sys: StarSystemType) => sys.id === homeSystemId,
+                    );
 
                     // Create Home colony
                     const colony = new Colony(homeSystemId, playerId, 100000);
-                    homeSystem.colony = colony;
-                    // Would be better manipulating as objects
-                    // const homeColonySystem = { ...homeSystem, colony: colony };
 
-                    coloniesByPlayer[playerId] = { homeSystemId: colony };
+                    // Would be better manipulating as objects
+                    // homeSystem = {...homeSystem, colonyId: colony.id};
+                    homeSystem.colonyId = colony;
+
+                    coloniesByPlayer[playerId] = [colony];
 
                     const playerUpdate = {
                         ...data.player,
-                        homeSystemId: homeSystemId,
-                        colonisedSystems: [homeSystem],
-                        visibleSystems: [],
+                        colonies: coloniesByPlayer[playerId],
                     };
                     const channel = postal.channel('player');
 

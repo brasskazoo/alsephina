@@ -17,10 +17,13 @@ export default class StarSystemService implements Service {
 
                 if (playerId && systems.length === 0) {
                     // Create starting system
-                    const newSystem = new StarSystem(SystemEnvironment.SUITABLE);
-                    systems.push(newSystem);
+                    const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
+                    systems.push(homeSystem);
+                    systems.push(new StarSystem());
+                    systems.push(new StarSystem());
+                    systems.push(new StarSystem());
 
-                    const newPlayer = { ...data.player, visibleSystems: systems };
+                    const newPlayer = { ...data.player, homeSystemId: homeSystem.id, visibleSystems: systems };
 
                     const channel = postal.channel('player');
                     channel.publish('player.homeSystem.created', { player: newPlayer });

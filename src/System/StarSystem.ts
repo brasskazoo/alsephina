@@ -1,4 +1,3 @@
-import Colony from '../StarSystemColony/Colony';
 import { generateId } from '../util/EntityId';
 
 export enum SystemEnvironment {
@@ -7,23 +6,24 @@ export enum SystemEnvironment {
     SUITABLE,
 }
 
-interface ISystem {
+export type StarSystemType = {
     id: string;
     name: string;
     environment: SystemEnvironment;
-}
+    colonyId?: string;
+};
 
-export default class StarSystem implements ISystem {
+export default class StarSystem implements StarSystemType {
     id: string;
     name: string;
     environment: SystemEnvironment;
-    colony: Colony | undefined;
 
-    constructor(environment?: SystemEnvironment, colony?: Colony) {
+    constructor(environment?: SystemEnvironment) {
         this.id = generateId();
         this.name = 'S-' + this.id;
         this.environment = environment ? environment : randomEnum(SystemEnvironment);
-        this.colony = colony;
+
+        console.debug(`New star system ${this.name}`);
     }
 }
 
@@ -32,6 +32,5 @@ function randomEnum<T>(anEnum: T): T[keyof T] {
         .map((n) => Number.parseInt(n))
         .filter((n) => !Number.isNaN(n)) as unknown) as T[keyof T][];
     const randomIndex = Math.floor(Math.random() * enumValues.length);
-    const randomEnumValue = enumValues[randomIndex];
-    return randomEnumValue;
+    return enumValues[randomIndex];
 }

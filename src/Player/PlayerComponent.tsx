@@ -1,10 +1,11 @@
 import React from 'react';
 import StarSystem, { SystemEnvironment } from '../System/StarSystem';
-import Player from './Player';
+import Player, { PlayerType } from './Player';
+import { ColonyType } from '../StarSystemColony/Colony';
 
 type Props = {
-    player: Player;
-    colonisedSystems: StarSystem[];
+    player: Player | PlayerType | undefined;
+    colonies: ColonyType[];
     exploredSystems: StarSystem[];
     visibleSystems: StarSystem[];
     exploreSystem: (id: string) => void;
@@ -13,26 +14,21 @@ type Props = {
 
 const PlayerComponent: React.FC<Props> = ({
     player,
-    colonisedSystems,
+    colonies,
     exploredSystems,
     visibleSystems,
     exploreSystem,
-    coloniseSystem,
 }: Props) => {
-    const colonisedSystemsDiv = colonisedSystems.map((sys) => {
-        let popString;
-        let maxPopString;
-        if (sys.colony) {
-            const popByMillion = sys.colony.population / 1000000;
-            popString = popByMillion > 1 ? Math.round(popByMillion) : popByMillion.toFixed(1);
-            maxPopString = sys.colony.maxPopulation / 1000000;
-        }
+    const colonisedSystemsDiv = colonies.map((colony: ColonyType) => {
+        const popByMillion = colony.population / 1000000;
+        const popString = popByMillion > 1 ? Math.round(popByMillion) : popByMillion.toFixed(1);
+        const maxPopString = colony.maxPopulation / 1000000;
 
         return (
-            <div key={sys.id}>
+            <div key={colony.id}>
                 <h3>
-                    {sys.name}
-                    {sys.id === player.homeSystemId ? ' [Home]' : ''}
+                    {colony.systemId}
+                    {colony.systemId === player?.homeSystemId ? ' [Home]' : ''}
                 </h3>
                 <span>
                     Population: {popString}m (max {maxPopString})
@@ -46,9 +42,9 @@ const PlayerComponent: React.FC<Props> = ({
             <h3>{sys.name}</h3>
             <span>{SystemEnvironment[sys.environment]}</span>
             <span>
-                {player.canColonise(sys.environment) && (
+                {/* {player?.canColonise(sys.environment) && (
                     <button onClick={() => coloniseSystem(sys.id)}>Colonise...</button>
-                )}
+                )} */}
             </span>
         </div>
     ));

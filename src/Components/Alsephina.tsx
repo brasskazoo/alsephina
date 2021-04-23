@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import postal from 'postal';
 import ServiceFactory from '../services/ServiceFactory';
 import { PlayerType } from '../Player/Player';
-import StarSystem from '../System/StarSystem';
+import { StarSystemType } from '../System/StarSystem';
 import PlayerComponent from '../Player/PlayerComponent';
+import { ColonyType } from '../StarSystemColony/Colony';
 
 // Init service factory
 ServiceFactory();
 
 function App(): React.ReactElement {
     const [thePlayer, updatePlayer] = useState<PlayerType>();
-    const [visibleSystems, updateVisibleSystems] = useState<StarSystem[]>([]);
-    const [colonisedSystems, updateColonisedSystems] = useState<StarSystem[]>([]);
+    const [visibleSystems, updateVisibleSystems] = useState<StarSystemType[]>([]);
+    // const [colonisedSystems, updateColonisedSystems] = useState<StarSystemType[]>([]);
+    const [colonies, updateColonies] = useState<ColonyType[]>([]);
 
     postal.subscribe({
         channel: 'player',
@@ -22,7 +24,8 @@ function App(): React.ReactElement {
 
             updatePlayer(data.player);
             updateVisibleSystems(data.player?.visibleSystems);
-            updateColonisedSystems(data.player?.colonisedSystems);
+            // updateColonisedSystems(data.player?.colonisedSystems);
+            updateColonies(data.player?.colonies);
         },
     });
 
@@ -43,7 +46,7 @@ function App(): React.ReactElement {
 
             <PlayerComponent
                 player={thePlayer}
-                colonisedSystems={colonisedSystems}
+                colonies={colonies}
                 exploredSystems={[]}
                 visibleSystems={visibleSystems}
                 exploreSystem={() => {

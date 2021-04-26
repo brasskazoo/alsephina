@@ -5,6 +5,7 @@ import { PlayerType } from '../Player/Player';
 import { StarSystemType } from '../System/StarSystem';
 import PlayerComponent from '../Player/PlayerComponent';
 import { ColonyType } from '../StarSystemColony/Colony';
+import { generateId } from '../util/EntityId';
 
 // Init service factory
 ServiceFactory();
@@ -29,17 +30,15 @@ function App(): React.ReactElement {
         },
     });
 
+    const createNewPlayer = () => {
+        postal.publish({ channel: 'player', topic: 'create.new', data: { reqId: generateId() } });
+    };
+
     return (
         <div className="App">
             <h1>Ascension to Alsephina</h1>
             <fieldset>
-                <button
-                    onClick={() => {
-                        postal.publish({ channel: 'player', topic: 'create.new' });
-                    }}
-                >
-                    New Player
-                </button>
+                <button onClick={createNewPlayer}>New Player</button>
             </fieldset>
 
             <span>Player: {thePlayer?.id}</span>

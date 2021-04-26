@@ -10,24 +10,23 @@ export default class StarSystemService implements Service {
 
     private constructor() {
         postal.subscribe({
-            channel: 'player',
-            topic: 'player.created',
+            channel: 'StarSystem',
+            topic: 'init.home.systems',
             callback: function (data) {
-                const playerId = data.player.id;
+                const { reqId, player } = data;
+                const playerId = player.id;
 
                 if (playerId && systems.length === 0) {
-                    // Create starting system
-                    const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
-                    systems.push(homeSystem);
+                    // At least one system is suitable for home system
+                    systems.push(new StarSystem(SystemEnvironment.SUITABLE));
                     systems.push(new StarSystem());
                     systems.push(new StarSystem());
                     systems.push(new StarSystem());
 
-                    const newPlayer = { ...data.player, homeSystemId: homeSystem.id, visibleSystems: systems };
+                    const newPlayer = { ...data.player, visibleSystems: systems };
 
                     const channel = postal.channel('player');
-                    channel.publish('player.homeSystem.created', { player: newPlayer });
-                    // channel.publish('player.updated', { player: newPlayer });
+                    channel.publish('initial.systems.created', { reqId, player: newPlayer });
                 }
             },
         });

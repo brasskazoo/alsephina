@@ -8,9 +8,7 @@ const players: Record<string, PlayerType> = {};
 type EventDataType = {
     reqId: string,
     playerId? :string,
-    player?: PlayerType,
     colony: ColonyType,
-
 }
 
 export default class PlayerService implements Service {
@@ -34,18 +32,21 @@ export default class PlayerService implements Service {
                     channel: 'player', topic: 'initial.systems.created', callback: (data, envelope) => {
                         console.log(envelope);
 
-                        const {reqId, player} = data;
+                        const {reqId, playerId, exploredSystems, visibleSystems} = data;
+                        const player = players[playerId];
 
                         // Get the target home system TODO check for habitable
-                        const homeSystemId = player.visibleSystems[0].id;
-                        const updPlayer = {...player, homeSystemId};
+                        const homeSystemId = exploredSystems[0].id;
+                        const updPlayer = {...player, homeSystemId, exploredSystems, visibleSystems};
+
+                        // Update local store
                         players[player.id] = updPlayer;
 
                         postal.publish({
                             channel: 'Colony', topic: 'create.colony', data: {
                                 reqId,
-                                player: updPlayer,
-                                systemId: updPlayer.homeSystemId
+                                playerId,
+                                systemId: homeSystemId
                             }
                         });
                         // TODO unsubscribe?
@@ -54,7 +55,7 @@ export default class PlayerService implements Service {
             );
 
             // Request initial star systems
-            chStarSystem.publish('init.home.systems', {reqId, player});
+            chStarSystem.publish('init.home.systems', {reqId, playerId: player.id});
         });
 
         // This will catch the home system colony as well as subsequent colonies
@@ -65,6 +66,7 @@ export default class PlayerService implements Service {
             const {reqId, playerId = '', colony} = data as EventDataType;
 
             let player = players[playerId];
+
             // TODO check it doesn't already exist
             const colonies = [...player.colonies, colony];
 

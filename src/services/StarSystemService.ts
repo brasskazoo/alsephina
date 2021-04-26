@@ -13,23 +13,24 @@ export default class StarSystemService implements Service {
             channel: 'StarSystem',
             topic: 'init.home.systems',
             callback: function (data) {
-                const { reqId, player } = data;
-                const playerId = player.id;
+                const { reqId, playerId } = data;
 
                 if (playerId && systems.length === 0) {
                     // At least one system is suitable for home system
-                    systems.push(new StarSystem(SystemEnvironment.SUITABLE));
-                    systems.push(new StarSystem());
-                    systems.push(new StarSystem());
-                    systems.push(new StarSystem());
 
-                    const newPlayer = { ...data.player, visibleSystems: systems };
+                    const homeSystem = new StarSystem(SystemEnvironment.SUITABLE);
+
+                    systems.push(new StarSystem());
+                    systems.push(new StarSystem());
+                    systems.push(new StarSystem());
 
                     const channel = postal.channel('player');
-                    channel.publish('initial.systems.created', { reqId, player: newPlayer });
+                    channel.publish('initial.systems.created', { reqId, playerId, exploredSystems: [homeSystem], visibleSystems: systems });
                 }
             },
         });
+
+        // TODO subscribe to player.colony.created and store colonyId against star system
     }
 
     public static get Instance(): StarSystemService {
